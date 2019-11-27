@@ -64,6 +64,7 @@ window.addEventListener('DOMContentLoaded', function () {
             menu = document.querySelector('menu'),
             closeBtn = document.querySelector('.close-btn'),
             menuItems = menu.querySelectorAll('ul>li');
+            
         //вариант 1
         // const handlerMenu = () => {
         //     if (!menu.style.transform || menu.style.transform === `translate(-100%)`) {
