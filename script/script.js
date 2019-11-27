@@ -175,7 +175,7 @@ window.addEventListener('DOMContentLoaded', function () {
             interval;
         
         const addDot = (classN) => {
-            
+
             let dot = document.createElement('li'); 
                 dot.classList.add('dot');
                 dot.classList.add(classN);
@@ -267,6 +267,44 @@ window.addEventListener('DOMContentLoaded', function () {
         startSlide(2000);
     };
     slider();
+
+    // Команда
+    const reiker = () => {
+
+        const command = document.querySelector('.command');
+
+         let save;
+
+          command.addEventListener('mouseover', (event) => {
+            let target = event.target;
+            if (target.matches('.command__photo')){
+                save = target.src;
+                target.src = target.dataset.img;
+            }     
+          });
+          command.addEventListener('mouseout', (event) => {
+            let target = event.target;
+            if (target.matches('.command__photo')){
+                target.src = save;
+            }     
+          });
+
+    };
+
+      
+    reiker();
+
+    // Калькулятор
+    const calc = () => {
+       const calcSquare = document.querySelector('.calc-square'),
+             calcCount = document.querySelector('.calc-count'),
+             calcDay = document.querySelector('.calc-day'),
+             
+
+
+    };
+    calc();
+
 
     // body .active-menu {
     //     -webkit-transition: 1s;
