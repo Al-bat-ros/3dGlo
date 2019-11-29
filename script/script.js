@@ -56,7 +56,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     }
 
-    countTimer('28 november 2019');
+    countTimer('30 november 2019');
 
     //Меню
     const toggleMenu = () => {
@@ -289,9 +289,7 @@ window.addEventListener('DOMContentLoaded', function () {
             }     
           });
 
-    };
-
-      
+    }; 
     reiker();
 
     // Калькулятор
@@ -350,6 +348,95 @@ window.addEventListener('DOMContentLoaded', function () {
 
     };
     calc(100);
+
+    // Валидация
+    const validation = () => {
+       
+        const phone = document.querySelectorAll('.form-phone');
+        const name = document.querySelectorAll('.form-name');
+       
+       phone.forEach((elem) => {
+        elem.addEventListener('input', (event) => {
+            let target = event.target;
+             target.value = target.value.replace(/\D/g, '');
+        });
+       });
+        
+        name.forEach((item) => {
+            item.addEventListener('input', (event) => {
+                let target = event.target;
+                 target.value = target.value.replace(/[a-zA-Z0-9]/g, '');
+            });
+        });
+    };
+    validation();
+
+    //send-ajax-form
+    const sendForm = () => {
+        const errorMessage = 'Что то пошло не так...',
+              loadMessage = 'Загрузка',
+              successMesage = 'Спасибо! Мы скоро с вами свяжемся';
+              
+              // add div massages
+              const form = document.querySelectorAll('form');
+              const statusMessage = document.createElement('h3');
+              statusMessage.style.cssText = 'font-size: 2rem';
+              const input = document.querySelectorAll('input');
+
+              form.forEach((elem) => {
+                    elem.addEventListener('submit', (event) => {
+                           event.preventDefault();
+                           elem.appendChild(statusMessage);
+                           statusMessage.textContent = loadMessage;
+
+                            const formData = new FormData(elem);
+                            let body = {};
+                        
+                            formData.forEach((val, key) => {
+                            body[key] = val;
+                            
+                            });
+                            postData(body, () => { 
+                                input.forEach((elem)=>{
+                                    elem.value = '';    
+                                } );       
+                                statusMessage.textContent = successMesage; 
+                            }, (error) => {
+                                input.forEach((elem)=>{
+                                    elem.value = '';    
+                                } );
+                                statusMessage.textContent = errorMessage;
+                                console.error(error);   
+                            });
+                            // elem.forEach((item) => {
+                            //     console.log(item);
+                            // });
+                           
+                    });
+              });
+
+            
+
+              const postData = (body, outputData, errorData) => {
+                const request = new XMLHttpRequest();
+                request.addEventListener('readystatechange', () => {               
+                    if(request.readyState !== 4) {
+                        return;
+                    }
+                    if (request.status === 200){
+                        outputData(request.status);
+                    } else {
+                        errorData(); 
+                    }
+                 });
+
+                request.open('POST', './server.php');
+                request.setRequestHeader('Content-Type', 'application/json');
+                request.send(JSON.stringify(body));
+              };
+
+    };
+    sendForm();
 
 
     // body .active-menu {

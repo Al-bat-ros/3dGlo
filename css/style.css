@@ -578,7 +578,7 @@ footer {
     width: 100%;
     margin-bottom: 3rem;
     margin-top: 1.5rem; }
-  .popup .popup-close {
+  .popup .popup-close .popuperror{
     position: absolute;
     z-index: 999999;
     top: 0;
