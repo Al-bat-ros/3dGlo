@@ -411,42 +411,27 @@ window.addEventListener('DOMContentLoaded', function () {
 
                     });
               });
+              const postData = (body) => { 
+                fetch('./server.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
 
-            
-
-              const postData = (body, errorData) => {
-                  return new Promise((resolve,reject) => {
-                    const request = new XMLHttpRequest();
-                    request.addEventListener('readystatechange', () => {               
-                        if(request.readyState !== 4) {
-                            return;
+                })
+                    .then((response) => {
+                        if (response.status !== 200){
+                            throw 'error';
                         }
-                        if (request.status === 200){
-                            resolve(request.status);
-                        } else {
-                            reject(request.statusText); 
-                        }
-                     });
-    
-                    request.open('POST', './server.php');
-                    request.setRequestHeader('Content-Type', 'application/json');
-                    request.send(JSON.stringify(body));
-                  });
- 
-              };
-
+                    return(response.json);
+                })
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => console.error(error));
+            };
     };
     sendForm();
-
-
-    // body .active-menu {
-    //     -webkit-transition: 1s;
-    //     transition: 1s;
-    //     -webkit-transform: translateX(100%);
-    //     transform: translateX(100%)
-    // }
-
-
-
 
 });
