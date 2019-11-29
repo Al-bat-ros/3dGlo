@@ -408,10 +408,7 @@ window.addEventListener('DOMContentLoaded', function () {
                                 statusMessage.textContent = errorMessage;
                                 console.error(error);   
                             });
-                            // elem.forEach((item) => {
-                            //     console.log(item);
-                            // });
-                           
+
                     });
               });
 
